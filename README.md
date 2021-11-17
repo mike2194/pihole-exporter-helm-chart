@@ -3,7 +3,8 @@
 TL;DR;
 
 ```
-helm install -name pihole-exporter --namespace pihole ./
+helm repo add pihole https://github.com/mike2194/pihole-exporter-helm-chart/raw/master/charts
+helm install -name pihole-exporter --namespace pihole pihole/pihole-exporter
 ```
 
 Using an auth token:
@@ -12,7 +13,7 @@ helm install \
   -name pihole-exporter \
   --namespace pihole \
   --set secretEnvVars.PIHOLE_APITOKEN=myPiHoleApiToken \
-  ./
+  pihole/pihole-exporter
 ```
 
 Using a password:
@@ -21,7 +22,7 @@ helm install \
   -name pihole-exporter \
   --namespace pihole \
   --set secretEnvVars.PIHOLE_PASSWORD=myPiHolePassword \
-  ./
+  pihole/pihole-exporter
 ```
 
 Setting the hostname with a password:
@@ -31,7 +32,7 @@ helm install \
   --namespace pihole \
   --set secretEnvVars.PIHOLE_PASSWORD=myPiHolePassword \
   --set extraEnvVars.PIHOLE_HOSTNAME=my.pihole.server \
-  ./
+  pihole/pihole-exporter
 ```
 
 ## Introduction
