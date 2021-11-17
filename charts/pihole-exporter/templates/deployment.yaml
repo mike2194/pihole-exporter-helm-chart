@@ -3,18 +3,20 @@ kind: Deployment
 metadata:
   name: {{ include "pihole-exporter.fullname" . }}
   labels:
-{{ include "pihole-exporter.labels" . | indent 4 }}
+    {{ include "pihole-exporter.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "pihole-exporter.name" . }}
-      app.kubernetes.io/instance: {{ .Release.Name }}
+      {{ include "pihole-exporter.selector-labels" . | indent 6 }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "pihole-exporter.name" . }}
-        app.kubernetes.io/instance: {{ .Release.Name }}
+        {{ include "pihole-exporter.labels" . | indent 8 }}
+      {{ if .Values.service.annotations }}
+      annotations:
+        {{ toYaml .Values.service.annotations | nindent 8 }}
+      {{ end }}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:

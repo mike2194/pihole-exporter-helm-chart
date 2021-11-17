@@ -3,7 +3,11 @@ kind: Service
 metadata:
   name: {{ include "pihole-exporter.fullname" . }}
   labels:
-{{ include "pihole-exporter.labels" . | indent 4 }}
+    {{ include "pihole-exporter.labels" . | nindent 4 }}
+  {{ if .Values.service.annotations }}
+  annotations:
+    {{ toYaml .Values.service.annotations | nindent 4 }}
+  {{ end }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,5 +16,4 @@ spec:
       protocol: TCP
       name: exporter-port
   selector:
-    app.kubernetes.io/name: {{ include "pihole-exporter.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{ include "pihole-exporter.selector-labels" . | nindent 4 }}

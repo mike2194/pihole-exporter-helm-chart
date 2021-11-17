@@ -32,12 +32,19 @@ Create chart name and version as used by the chart label.
 {{- end -}}
 
 {{/*
+Selector labels
+*/}}
+{{- define "pihole-exporter.selector-labels" -}}
+app.kubernetes.io/name: {{ include "pihole-exporter.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end -}}
+
+{{/*
 Common labels
 */}}
 {{- define "pihole-exporter.labels" -}}
-app.kubernetes.io/name: {{ include "pihole-exporter.name" . }}
+{{ include "pihole-exporter.selector-labels" . }}
 helm.sh/chart: {{ include "pihole-exporter.chart" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
