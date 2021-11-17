@@ -1,11 +1,15 @@
-apiVersion: v1
+apiVersion: v2
 name: pihole-exporter
-appVersion: "0.0.1"
 description: A Helm chart for Pihole Exporter to export metrics to Prometheus
-name: pihole-exporter
+type: application
+version: 1.1.0
+appVersion: "0.0.1"
+home: "https://github.com/mike2194/pihole-exporter-helm-chart"
 sources:
   - https://github.com/eko/pihole-exporter
 maintainers:
+  - name: Mike Nichols (Paxos)
+    email: mnichols@paxos.com
+    url: https://keybase.io/mike2194
   - name: Simon Garcia
     email: deportivo2005@gmail.com
-version: 1.1.0
